@@ -6,6 +6,9 @@ node_modules/
 # Bun
 bun.lockb
 
+# Turborepo
+.turbo
+
 # Testing
 coverage/
 .nyc_output
