@@ -1,0 +1,18 @@
+{
+  "name": "@tauri-starter/db",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./index.ts",
+  "scripts": {
+    "generate": "drizzle-kit generate",
+    "migrate": "bun run migrator.ts"
+  },
+  "dependencies": {
+    "drizzle-orm": "^0.36.4"
+  },
+  "devDependencies": {
+    "drizzle-kit": "^0.28.1",
+    "@types/bun": "latest"
+  }
+}
