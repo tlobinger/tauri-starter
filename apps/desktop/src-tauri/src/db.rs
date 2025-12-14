@@ -16,7 +16,6 @@
 
 use serde::{Deserialize, Serialize};
 use tauri::{AppHandle, Manager};
-use tauri_plugin_sql::{Builder as SqlBuilder, Migration, MigrationKind};
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct QueryResult {
@@ -74,28 +73,23 @@ pub async fn init_database(app: AppHandle) -> Result<(), String> {
  * @param sql - SQL statement
  * @param params - Query parameters (prevents SQL injection)
  * @returns Query results
+ *
+ * Note: This is a placeholder implementation. For production use:
+ * 1. Use the tauri-plugin-sql JavaScript API directly from the frontend
+ * 2. Or implement with direct sqlx if custom Rust-side SQL execution is needed
  */
 #[tauri::command]
 pub async fn execute_sql(
-    app: AppHandle,
+    _app: AppHandle,
     sql: String,
     params: Vec<serde_json::Value>,
 ) -> Result<QueryResult, String> {
-    use tauri_plugin_sql::DbPool;
-
-    let db: tauri::State<DbPool> = app.state();
-    
-    // Get the SQLite connection
-    let conn = db
-        .get("sqlite:app.db")
-        .ok_or_else(|| "Database not initialized".to_string())?;
-
     println!("📝 Executing SQL: {}", sql);
     println!("   Params: {:?}", params);
 
-    // Execute query
-    // Note: The actual implementation depends on the tauri-plugin-sql API
-    // This is a placeholder that shows the pattern
+    // Placeholder implementation
+    // TODO: Implement actual SQL execution using sqlx directly or use
+    // the tauri-plugin-sql JavaScript API from the frontend
     
     let result = QueryResult {
         rows: vec![],
@@ -131,8 +125,6 @@ pub async fn execute_batch(
 
 #[cfg(test)]
 mod tests {
-    use super::*;
-
     #[test]
     fn test_database_module_compiles() {
         // Basic compilation test
