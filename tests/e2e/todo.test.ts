@@ -13,7 +13,7 @@
  * See: https://v2.tauri.app/develop/tests/
  */
 
-import { describe, test, expect, beforeAll, afterAll } from "bun:test";
+import { afterAll, beforeAll, describe, expect, test } from "bun:test";
 
 // Mock WebDriver types (in production, use @tauri-apps/webdriver)
 type WebDriver = {

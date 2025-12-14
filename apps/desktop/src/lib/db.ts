@@ -10,10 +10,10 @@
  * - Safe to import from any component
  */
 
-import { drizzle } from "drizzle-orm/sqlite-proxy";
+import { invoke } from "@tauri-apps/api/core";
 import { createTauriSQLiteAdapter } from "@tauri-starter/db";
 import * as schema from "@tauri-starter/db/schema";
-import { invoke } from "@tauri-apps/api/core";
+import { drizzle } from "drizzle-orm/sqlite-proxy";
 
 /**
  * Database instance
