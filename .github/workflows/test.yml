@@ -96,7 +96,7 @@ jobs:
         run: bun install
 
       - name: Build frontend
-        run: bun run build --filter @tauri-starter/desktop
+        run: bun run build
 
       - name: Build Tauri app
         run: bun run tauri:build
