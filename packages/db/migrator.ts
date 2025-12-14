@@ -19,7 +19,7 @@
  * - Production (called from Tauri startup)
  */
 
-import { readFileSync, readdirSync } from "node:fs";
+import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { invoke } from "@tauri-apps/api/core";
 
