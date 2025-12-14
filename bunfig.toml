@@ -1,0 +1,20 @@
+# Bun configuration file
+# See: https://bun.sh/docs/runtime/bunfig
+
+[install]
+# Use exact versions for reproducible builds
+exact = true
+
+# Prefer local packages (workspaces)
+prefer-offline = false
+
+[test]
+# Test configuration
+preload = []
+coverage = false
+coverageReporter = ["text", "json"]
+
+[run]
+# Don't auto-install missing packages
+# Ensures reproducible builds
+bun = true
