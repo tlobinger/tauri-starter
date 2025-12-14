@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { eq } from "drizzle-orm";
 import { db, type Todo } from "@/lib/db";
 import { todos } from "@tauri-starter/db/schema";
-import { eq } from "drizzle-orm";
 import styles from "./TodoList.module.css";
 
 /**
@@ -146,6 +146,7 @@ export function TodoList() {
               <span className={item.completed ? styles.completed : ""}>{item.title}</span>
             </label>
             <button
+              type="button"
               onClick={() => deleteTodo(item.id)}
               className={styles.deleteButton}
               disabled={loading}
