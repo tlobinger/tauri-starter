@@ -10,10 +10,10 @@
  * - Safe to import from any component
  */
 
-import { invoke } from "@tauri-apps/api/core";
 import { createTauriSQLiteAdapter, migrations } from "@tauri-starter/db";
 import * as schema from "@tauri-starter/db/schema";
 import { drizzle } from "drizzle-orm/sqlite-proxy";
+import { ipcInvoke } from "./ipc";
 
 /**
  * Check if Tauri API is available
@@ -190,7 +190,7 @@ export async function initializeDatabase(): Promise<void> {
     // In Tauri v2, we call invoke directly - if Tauri isn't available,
     // it will throw an error that we can catch and provide a helpful message
     try {
-      await invoke("init_database");
+      await ipcInvoke<void>("init_database");
     } catch (error: unknown) {
       // Check if this is a "Tauri not available" error
       const errorMessage = String(
