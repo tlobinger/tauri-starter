@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "description": "Production-grade Tauri v2 + Next.js 16 starter with SQLite and Drizzle ORM",
+  "packageManager": "bun@1.1.38",
   "workspaces": [
     "apps/*",
     "packages/*"
