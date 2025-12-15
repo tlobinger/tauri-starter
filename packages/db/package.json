@@ -14,7 +14,9 @@
     "migrate": "bun run migrator.ts"
   },
   "dependencies": {
-    "drizzle-orm": "^0.36.4"
+    "drizzle-orm": "^0.36.4",
+    "@tauri-apps/api": "^2.2.0",
+    "@tauri-apps/plugin-sql": "^2.0.0"
   },
   "devDependencies": {
     "drizzle-kit": "^0.28.1",

@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { TodoList } from "@/components/TodoList";
 import { initializeDatabase } from "@/lib/db";
-import styles from "./page.module.css";
+import { useEffect, useState } from "react";
+import { Spinner } from "@/components/ui/spinner";
 
 export default function Home() {
   const [isReady, setIsReady] = useState(false);
@@ -16,60 +16,39 @@ export default function Home() {
         setIsReady(true);
       })
       .catch((err) => {
-        console.error("Failed to initialize database:", err);
-        setError(err.message || "Failed to initialize database");
+        const message =
+          typeof err === "string" ? err : err?.message ? err.message : JSON.stringify(err, null, 2);
+        setError(message || "Failed to initialize app");
       });
   }, []);
 
   if (error) {
     return (
-      <div className={styles.container}>
-        <div className={styles.error}>
-          <h1>❌ Initialization Error</h1>
-          <p>{error}</p>
-          <p className={styles.errorDetails}>
-            Check the console for more details. This usually means:
-          </p>
-          <ul>
-            <li>Database migration failed</li>
-            <li>Tauri SQL plugin not configured</li>
-            <li>File permissions issue</li>
-          </ul>
-        </div>
+      <div className="flex flex-col items-center justify-center">
+        <h1 className="text-3xl font-bold mt-4 mb-8 flex-col items-center gap-2">
+          <span>Initialization Error</span>
+          <pre className="whitespace-pre-wrap warp-break-word text-sm">{error}</pre>
+        </h1>
       </div>
     );
   }
 
   if (!isReady) {
     return (
-      <div className={styles.container}>
-        <div className={styles.loading}>
-          <h1>🔄 Initializing...</h1>
-          <p>Setting up database and running migrations</p>
-        </div>
+      <div className="flex flex-col items-center justify-center">
+        <h1 className="text-3xl font-bold mt-4 mb-8 flex items-center gap-2">
+          <Spinner size="md" />
+          <span>Loading ...</span>
+        </h1>
       </div>
     );
   }
 
   return (
-    <div className={styles.container}>
-      <header className={styles.header}>
-        <h1>📝 Todo App</h1>
-        <p className={styles.subtitle}>
-          A production-grade local-first desktop app built with Tauri + Next.js
-        </p>
-      </header>
+    <div className="flex flex-col items-center justify-center">
+      <h1 className="text-3xl font-bold mt-4 mb-8">Stuff to do</h1>
 
-      <main className={styles.main}>
-        <TodoList />
-      </main>
-
-      <footer className={styles.footer}>
-        <p>
-          Built with <strong>Tauri v2</strong> + <strong>Next.js 16</strong> +{" "}
-          <strong>SQLite</strong>
-        </p>
-      </footer>
+      <TodoList />
     </div>
   );
 }

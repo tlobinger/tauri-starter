@@ -19,9 +19,11 @@
  * - Production (called from Tauri startup)
  */
 
-import { readdirSync, readFileSync } from "node:fs";
+import { readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
-import { invoke } from "@tauri-apps/api/core";
+// See note in `tauri-adapter.ts` about importing from the package root
+// instead of the "@tauri-apps/api/core" subpath for better compatibility.
+import { invoke } from "@tauri-apps/api";
 
 interface MigrationFile {
   name: string;

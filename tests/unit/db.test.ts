@@ -7,8 +7,8 @@
  * In a real implementation, you'd mock the Tauri IPC layer.
  */
 
-import { describe, test, expect } from "bun:test";
-import { todos, type Todo, type NewTodo } from "@tauri-starter/db/schema";
+import { describe, expect, test } from "bun:test";
+import { type NewTodo, type Todo, todos } from "@tauri-starter/db/schema";
 
 describe("Database Schema", () => {
   test("todos table should have correct structure", () => {

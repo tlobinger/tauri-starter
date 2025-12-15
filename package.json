@@ -4,15 +4,13 @@
   "private": true,
   "description": "Production-grade Tauri v2 + Next.js 16 starter with SQLite and Drizzle ORM",
   "packageManager": "bun@1.1.38",
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ],
+  "workspaces": ["apps/*", "packages/*"],
   "scripts": {
     "dev": "turbo run dev --filter @tauri-starter/desktop",
     "build": "turbo run build --filter @tauri-starter/desktop",
     "tauri:dev": "turbo run tauri:dev --filter @tauri-starter/desktop",
     "tauri:build": "turbo run tauri:build --filter @tauri-starter/desktop",
+    "mcp:serve": "tauri-mcp --app-path ./apps/desktop serve",
     "db:generate": "turbo run db:generate --filter @tauri-starter/db",
     "db:migrate": "turbo run db:migrate --filter @tauri-starter/db",
     "test": "turbo run test",
@@ -21,10 +19,14 @@
     "lint:fix": "biome check --write .",
     "format": "biome format --write ."
   },
+  "dependencies": {
+    "@tauri-apps/api": "^2.2.0"
+  },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
     "@types/bun": "latest",
-    "turbo": "^2.3.3"
+    "turbo": "^2.3.3",
+    "@tauri-starter/db": "workspace:*"
   },
   "engines": {
     "bun": ">=1.0.0",

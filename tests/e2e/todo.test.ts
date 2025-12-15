@@ -29,7 +29,7 @@ type WebElement = {
   isSelected: () => Promise<boolean>;
 };
 
-let driver: WebDriver | null = null;
+const driver: WebDriver | null = null;
 
 describe("Todo E2E Tests", () => {
   beforeAll(async () => {
