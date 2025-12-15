@@ -4,6 +4,23 @@
 
 ---
 
+## Read this if…
+
+- You’re new to **Tauri + Next.js static export** and want the “mental model”.
+- You’re about to add **new tables**, **new pages**, or **new Tauri commands**.
+- You hit a confusing build/runtime issue and want to understand *why* the stack is structured this way.
+
+## TL;DR (current repo)
+
+- **No server**: Next.js is in static export mode (`output: "export"`). No API routes / server actions / SSR.
+- **DB access happens in TypeScript** via `@tauri-apps/plugin-sql` + Drizzle.
+- **Rust is small by design**: it hosts the app + exposes only minimal commands (e.g. `init_database`).
+- **State**: Zustand store lives in `packages/store/` and is wired in `apps/desktop/src/stores/`.
+- **Errors**:
+  - Route-level: `apps/desktop/app/error.tsx`, `apps/desktop/app/global-error.tsx`
+  - Component-level: `apps/desktop/src/components/ErrorBoundary.tsx`
+- **IPC wrapper**: `apps/desktop/src/lib/ipc.ts` centralizes `invoke()` calls.
+
 ## Purpose
 
 This document explains **why** architectural decisions were made, not just **what** they are.
@@ -217,15 +234,9 @@ Results returned to Drizzle
 
 This is implemented in `packages/db/tauri-adapter.ts`:
 
-```ts
-export function createTauriSQLiteAdapter() {
-  return {
-    async execute(sql: string, params: unknown[]) {
-      return await invoke("execute_sql", { sql, params });
-    },
-  };
-}
-```
+- Drizzle generates SQL + params
+- The adapter calls `@tauri-apps/plugin-sql` (`Database.load("sqlite:app.db")`)
+- Results are returned to Drizzle
 
 **Key insight:** This adapter is the **only place** where Drizzle talks to Tauri. Everywhere else, you use Drizzle normally.
 
@@ -423,17 +434,16 @@ type NewTodo = typeof todos.$inferInsert;
 Tauri IPC uses **JSON serialization**:
 
 ```ts
-// Frontend
-const result = await invoke("execute_sql", {
-  sql: "SELECT * FROM todos",
-  params: [],
-});
+// Frontend (typed wrapper)
+import { ipcInvokeTyped } from "@/lib/ipc";
+
+await ipcInvokeTyped("init_database");
 ```
 
 ```rust
 // Backend
 #[tauri::command]
-async fn execute_sql(sql: String, params: Vec<Value>) -> Result<QueryResult> {
+pub async fn init_database(app: AppHandle) -> Result<(), String> {
     // ...
 }
 ```
@@ -443,24 +453,9 @@ async fn execute_sql(sql: String, params: Vec<Value>) -> Result<QueryResult> {
 - ✅ Rust enforces types at backend boundary
 - ⚠️ TypeScript types manually maintained (no automatic sync)
 
-**Best practice:**
-
-Define shared types:
-
-```ts
-// Shared type definition
-export interface QueryResult {
-  rows: unknown[];
-  rowsAffected: number;
-  lastInsertId?: number;
-}
-```
-
-Use TypeScript's `satisfies` operator:
-
-```ts
-const result = await invoke("execute_sql", { ... }) as QueryResult;
-```
+**Best practice (in this repo):**
+- Keep a small command map in `apps/desktop/src/types/ipc.ts`
+- Prefer `ipcInvokeTyped()` for app-owned commands (autocomplete + refactor safety)
 
 **Future improvement:**
 
@@ -546,23 +541,9 @@ try {
 
 ### Error Boundaries
 
-Use React error boundaries:
-
-```tsx
-class ErrorBoundary extends React.Component {
-  componentDidCatch(error, info) {
-    console.error("Uncaught error:", error, info);
-    this.setState({ hasError: true });
-  }
-
-  render() {
-    if (this.state.hasError) {
-      return <ErrorFallback />;
-    }
-    return this.props.children;
-  }
-}
-```
+Use both:
+- Route-level boundaries: `apps/desktop/app/error.tsx`, `apps/desktop/app/global-error.tsx`
+- Component-level boundary: `apps/desktop/src/components/ErrorBoundary.tsx`
 
 ---
 
@@ -672,7 +653,7 @@ println!("Memory: {} MB", memory_usage / 1_000_000);
 
 ```rust
 .invoke_handler(tauri::generate_handler![
-    execute_sql,  // ✅ Registered (callable from frontend)
+    commands::db::init_database,  // ✅ Registered (callable from frontend)
     // delete_all,  ❌ Not registered (not callable)
 ])
 ```
@@ -684,16 +665,8 @@ println!("Memory: {} MB", memory_usage / 1_000_000);
 **SQL injection prevention:**
 
 ```ts
-// ❌ Vulnerable
-await invoke("execute_sql", {
-  sql: `SELECT * FROM todos WHERE title = '${userInput}'`
-});
-
-// ✅ Safe
-await invoke("execute_sql", {
-  sql: "SELECT * FROM todos WHERE title = ?",
-  params: [userInput]
-});
+// ✅ Prefer Drizzle (parameterized) instead of string interpolation
+await db.select().from(todos).where(eq(todos.title, userInput));
 ```
 
 **File permissions:**
