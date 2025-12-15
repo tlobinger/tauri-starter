@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { ErrorProvider } from "@/contexts/ErrorContext";
 
 export const metadata: Metadata = {
   title: "Tauri + Next.js Starter",
@@ -13,7 +14,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <ErrorProvider>{children}</ErrorProvider>
+      </body>
     </html>
   );
 }
