@@ -1,4 +1,8 @@
 /** @type {import('next').NextConfig} */
+const withBundleAnalyzer = require("@next/bundle-analyzer")({
+  enabled: process.env.ANALYZE === "true",
+});
+
 const nextConfig = {
   // Static export is MANDATORY for Tauri production builds
   // Note: Next.js ignores this in dev mode (next dev), so HMR still works
@@ -25,6 +29,12 @@ const nextConfig = {
 
   // Workspaces export TypeScript source; Next needs to transpile these packages.
   transpilePackages: ["@tauri-starter/db", "@tauri-starter/store"],
+
+  experimental: {
+    // Helps reduce bundle size by improving tree-shaking for some packages.
+    // Add entries as needed (keep this list small and intentional).
+    optimizePackageImports: ["@heroicons/react", "@headlessui/react"],
+  },
 };
 
-module.exports = nextConfig;
+module.exports = withBundleAnalyzer(nextConfig);

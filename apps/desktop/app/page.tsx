@@ -1,9 +1,13 @@
 "use client";
 
-import { TodoList } from "@/components/TodoList";
 import { initializeDatabase } from "@/lib/db";
+import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { Spinner } from "@/components/ui/spinner";
+
+const TodoList = dynamic(async () => (await import("@/components/TodoList")).TodoList, {
+  ssr: false,
+});
 
 export default function Home() {
   const [isReady, setIsReady] = useState(false);
