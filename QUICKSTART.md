@@ -6,204 +6,78 @@
 
 ## Prerequisites
 
-Install these tools first:
+Install these tools:
 
-### 1. Bun (JavaScript Runtime)
-
-```bash
-curl -fsSL https://bun.sh/install | bash
-```
-
-### 2. Rust (Backend Language)
-
-```bash
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-```
-
-### 3. System Dependencies
-
-#### macOS
-
-```bash
-xcode-select --install
-```
-
-#### Linux (Ubuntu/Debian)
-
-```bash
-sudo apt update
-sudo apt install -y libwebkit2gtk-4.1-dev \
-  build-essential curl wget file \
-  libssl-dev libayatana-appindicator3-dev librsvg2-dev
-```
-
-#### Windows
-
-- Install [Visual Studio C++ Build Tools](https://visualstudio.microsoft.com/downloads/)
-- Install [WebView2](https://developer.microsoft.com/en-us/microsoft-edge/webview2/)
+- **[Bun](https://bun.sh/)** (>= 1.0.0) - `curl -fsSL https://bun.sh/install | bash`
+- **[Rust](https://rustup.rs/)** (latest stable) - `curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh`
+- **System dependencies** - See [Desktop App Guide](apps/desktop/README.md#prerequisites) for platform-specific setup
 
 ---
 
-## Installation
+## Install & Run
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/tauri-starter.git
+git clone <your-repo-url>
 cd tauri-starter
 
 # Install dependencies
 bun install
-```
 
----
-
-## Development
-
-```bash
-# Run development server
+# Run the app
 bun run tauri:dev
 ```
 
-This will:
-1. Start Next.js dev server (port 3000)
-2. Compile Rust backend
-3. Launch desktop app window
-4. Enable hot reload
+**That's it!** You should see a working Todo app.
 
 ---
 
-## Building
+## Build for Production
 
 ```bash
-# Build production app
 bun run tauri:build
 ```
 
-Find your app in:
-- **macOS:** `apps/desktop/src-tauri/target/release/bundle/dmg/`
-- **Linux:** `apps/desktop/src-tauri/target/release/bundle/appimage/`
-- **Windows:** `apps/desktop/src-tauri/target/release/bundle/msi/`
-
----
-
-## Testing
-
-```bash
-# TypeScript tests
-bun test
-
-# Rust tests
-bun run test:rust
-
-# Linting
-bun run lint
-```
-
----
-
-## Project Structure
-
-```
-tauri-starter/
-├── apps/desktop/       # Main desktop app
-│   ├── app/            # Next.js pages
-│   ├── src/            # Components & utilities
-│   └── src-tauri/      # Rust backend
-│
-├── packages/db/        # Database layer
-│   ├── schema/         # Database schema
-│   └── migrations/     # SQL migrations
-│
-└── tests/              # Test files
-```
+Find your app in `apps/desktop/src-tauri/target/release/bundle/`.
 
 ---
 
 ## Next Steps
 
-1. **Read the docs:**
-   - `README.md` - Project overview
-   - `apps/desktop/README.md` - Development guide
-   - `packages/db/README.md` - Database guide
+1. **Read the documentation:**
+   - [README.md](README.md) - Complete project overview
+   - [Desktop App Guide](apps/desktop/README.md) - Development details
+   - [Database Guide](packages/db/README.md) - Database architecture
+   - [Architecture Blueprint](docs/STARTER_BLUEPRINT.md) - Deep dive into design decisions
 
-2. **Customize the app:**
-   - Edit `apps/desktop/app/page.tsx` for UI
-   - Edit `packages/db/schema/todos.ts` for database
-   - Run `bun run db:generate` to create migrations
+2. **Customize:**
+   - Edit `apps/desktop/app/page.tsx` for UI changes
+   - Edit `packages/db/schema/todos.ts` for database schema
+   - Run `bun run db:generate` after schema changes
 
-3. **Add features:**
-   - Create new pages in `apps/desktop/app/`
-   - Add Tauri commands in `apps/desktop/src-tauri/src/`
-   - Define new schemas in `packages/db/schema/`
-
----
-
-## Common Commands
-
-```bash
-# Development
-bun run tauri:dev          # Run dev server
-
-# Building
-bun run tauri:build        # Build production app
-bun run build              # Build Next.js only
-
-# Database
-bun run db:generate        # Generate migrations
-bun run db:migrate         # Run migrations manually
-
-# Testing
-bun test                   # Run TypeScript tests
-bun run test:rust          # Run Rust tests
-bun test --watch           # Watch mode
-
-# Code Quality
-bun run lint               # Check code
-bun run lint:fix           # Fix issues
-bun run format             # Format code
-```
+3. **Common commands:**
+   ```bash
+   bun run tauri:dev      # Development
+   bun run tauri:build   # Production build
+   bun run db:generate   # Generate migrations
+   bun test              # Run tests
+   bun run lint          # Check code quality
+   ```
 
 ---
 
 ## Troubleshooting
 
-### App won't start
+**App won't start?**
+- Verify Rust: `rustc --version`
+- Verify Bun: `bun --version`
+- Try: `rm -rf node_modules && bun install`
 
-1. Check Rust is installed: `rustc --version`
-2. Check Bun is installed: `bun --version`
-3. Try cleaning: `rm -rf node_modules && bun install`
-
-### Database errors
-
-1. Ensure database initialized (check console logs)
-2. Try deleting database file and restart
-3. Check migrations applied (see logs)
-
-### Build errors
-
-1. Update Rust: `rustup update`
-2. Clean Rust build: `cargo clean`
-3. Check system dependencies installed
-
-### More help
-
+**More help:**
 - [Full README](README.md)
 - [Desktop App Guide](apps/desktop/README.md)
 - [Tauri Discord](https://discord.gg/tauri)
 
 ---
 
-## What You Get
-
-✅ **Working To-Do app** - Full CRUD operations  
-✅ **Type-safe database** - Drizzle ORM with SQLite  
-✅ **Hot reload** - Frontend and backend  
-✅ **Production build** - Platform-specific installers  
-✅ **Testing** - Unit, integration, E2E  
-✅ **Documentation** - 4,000+ lines of guides  
-
----
-
-**Ready to build your desktop app? Start coding!** 🚀
-
-See [README.md](README.md) for complete documentation.
+**Ready to build your desktop app?** See [README.md](README.md) for complete documentation.

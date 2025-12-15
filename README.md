@@ -67,7 +67,7 @@ Install these tools:
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/tauri-starter.git
+git clone <your-repo-url>
 cd tauri-starter
 
 # Install dependencies
@@ -505,11 +505,12 @@ See [Security Guide](apps/desktop/README.md#security) for details.
 
 Contributions welcome! Please:
 
-1. Read [CONTRIBUTING.md](CONTRIBUTING.md) (if present)
-2. Fork the repository
-3. Create a feature branch
-4. Add tests for new features
-5. Submit a pull request
+1. Fork the repository
+2. Create a feature branch
+3. Add tests for new features
+4. Submit a pull request
+
+For questions or issues, please open a GitHub issue.
 
 ---
 
@@ -549,9 +550,8 @@ Once you understand this starter:
 ## Support
 
 - 📖 [Documentation](apps/desktop/README.md)
-- 💬 [Discussions](https://github.com/yourusername/tauri-starter/discussions)
-- 🐛 [Issues](https://github.com/yourusername/tauri-starter/issues)
-- 🌟 [Star this repo](https://github.com/yourusername/tauri-starter) if it helped you!
+- 💬 [Tauri Discord](https://discord.gg/tauri)
+- 📚 [Extended Architecture Guide](docs/STARTER_BLUEPRINT.md)
 
 ---
 
