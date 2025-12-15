@@ -2,6 +2,7 @@
   "name": "@tauri-starter/db",
   "version": "1.0.0",
   "private": true,
+  "packageManager": "bun@1.1.38",
   "type": "module",
   "main": "./index.ts",
   "exports": {
