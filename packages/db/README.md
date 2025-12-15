@@ -10,8 +10,8 @@ This package contains the **single source of truth** for the application's data 
 
 - **Schema definitions** (TypeScript, using Drizzle ORM)
 - **Generated migrations** (SQL files)
-- **Migration runner** (auto-applies migrations at startup)
-- **Tauri adapter** (bridges Drizzle ↔ Tauri SQL plugin)
+- **Migration runner** (consumed by the app at startup)
+- **Tauri adapter** (bridges Drizzle ↔ `@tauri-apps/plugin-sql`)
 
 ---
 
@@ -42,7 +42,7 @@ We need a **bridge** between them.
 │  (tauri-adapter) │
 └────────┬─────────┘
          │
-         │ invoke("execute_sql", ...)
+         │ `@tauri-apps/plugin-sql` (Database.load("sqlite:app.db"))
          │
 ┌────────▼─────────┐
 │   Tauri Backend  │  Executes queries
@@ -119,7 +119,7 @@ This creates a new `.sql` file in `migrations/`.
 
 ### 3. Apply Migrations
 
-Migrations are applied **automatically** at app startup via `migrator.ts`.
+Migrations are applied by the desktop app during startup (see `apps/desktop/src/lib/db.ts`).
 
 For manual testing:
 

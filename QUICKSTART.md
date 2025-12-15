@@ -8,7 +8,7 @@
 
 Install these tools:
 
-- **[Bun](https://bun.sh/)** (>= 1.0.0) - `curl -fsSL https://bun.sh/install | bash`
+- **[Bun](https://bun.sh/)** (>= 1.1.0) - `curl -fsSL https://bun.sh/install | bash`
 - **[Rust](https://rustup.rs/)** (latest stable) - `curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh`
 - **System dependencies** - See [Desktop App Guide](apps/desktop/README.md#prerequisites) for platform-specific setup
 

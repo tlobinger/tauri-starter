@@ -79,6 +79,13 @@ bun run tauri:dev
 
 **That's it!** You should see a working Todo app.
 
+### What’s in the starter (quick map)
+- **UI**: `apps/desktop/app/*` + `apps/desktop/src/components/*`
+- **DB client + migrations**: `apps/desktop/src/lib/db.ts` + `packages/db/*`
+- **State**: `packages/store/*` + `apps/desktop/src/stores/*`
+- **IPC helper**: `apps/desktop/src/lib/ipc.ts`
+- **Errors**: `apps/desktop/app/error.tsx` + `apps/desktop/src/components/ErrorBoundary.tsx`
+
 ### Build for Production
 
 ```bash
@@ -144,6 +151,9 @@ tauri-starter/
 │       ├── schema/           # Drizzle schema definitions
 │       ├── migrations/       # Generated SQL migrations
 │       └── README.md         # Database architecture
+│
+│   └── store/                # State management (Zustand)
+│       └── src/              # Reusable store factory + minimal app store
 │
 ├── tests/
 │   ├── unit/                 # TypeScript unit tests
