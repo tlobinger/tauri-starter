@@ -23,9 +23,9 @@
     "@tauri-starter/db": "workspace:*",
     "@tauri-starter/store": "workspace:*",
     "clsx": "2.1.1",
-    "drizzle-orm": "^0.36.4",
+    "drizzle-orm": "^0.45.1",
     "motion": "12.23.26",
-    "next": "^15.1.0",
+    "next": "^16.0.10",
     "postcss": "8.5.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "@tauri-apps/cli": "^2.2.0",
-    "@types/node": "^22.10.2",
+    "@types/node": "^25.0.2",
     "@types/react": "^19.0.1",
     "@types/react-dom": "^19.0.2",
     "typescript": "^5.7.2"
