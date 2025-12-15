@@ -1,8 +1,5 @@
 "use client";
 
-import { type Todo, db } from "@/lib/db";
-import { todos } from "@tauri-starter/db/schema";
-import { eq } from "drizzle-orm";
 import { useEffect, useState } from "react";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
@@ -11,42 +8,23 @@ import { Field, Label } from "./ui/fieldset";
 import clsx from "clsx";
 import { Badge } from "./ui/badge";
 import { Spinner } from "./ui/spinner";
-
-/**
- * Generate a simple UUID v4
- * In production, consider using a library like `uuid` or `ulid`
- */
-function generateId(): string {
-  return crypto.randomUUID();
-}
+import { useTodoStore } from "@/stores/todoStore";
 
 export function TodoList() {
-  const [items, setItems] = useState<Todo[]>([]);
   const [newTitle, setNewTitle] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const items = useTodoStore((s) => s.items);
+  const loading = useTodoStore((s) => s.isLoading);
+  const error = useTodoStore((s) => s.error);
+  const loadTodos = useTodoStore((s) => s.loadTodos);
+  const addTodo = useTodoStore((s) => s.addTodo);
+  const toggleTodo = useTodoStore((s) => s.toggleTodo);
+  const deleteTodo = useTodoStore((s) => s.deleteTodo);
+  const clearError = useTodoStore((s) => s.clearError);
 
   // Load todos on mount
   useEffect(() => {
     loadTodos();
-  }, []);
-
-  async function loadTodos() {
-    try {
-      setLoading(true);
-      setError(null);
-      console.log("📥 Loading todos from database...");
-      const result = await db.select().from(todos).all();
-      console.log(`✅ Loaded ${result.length} todo(s) from database:`, result);
-      setItems(result);
-    } catch (err) {
-      console.error("❌ Failed to load todos:", err);
-      const errorMessage = err instanceof Error ? err.message : String(err);
-      setError(`Failed to load todos: ${errorMessage}`);
-    } finally {
-      setLoading(false);
-    }
-  }
+  }, [loadTodos]);
 
   async function addTodo(e: React.FormEvent) {
     e.preventDefault();
@@ -54,70 +32,8 @@ export function TodoList() {
     const title = newTitle.trim();
     if (!title) return;
 
-    try {
-      setLoading(true);
-      setError(null);
-
-      const now = new Date();
-      const newTodo = {
-        id: generateId(),
-        title,
-        completed: false,
-        createdAt: now,
-        updatedAt: now,
-      };
-
-      console.log("➕ Adding new todo:", newTodo);
-      await db.insert(todos).values(newTodo);
-      console.log("✅ Todo added successfully");
-
-      setNewTitle("");
-      await loadTodos();
-    } catch (err) {
-      console.error("❌ Failed to add todo:", err);
-      const errorMessage = err instanceof Error ? err.message : String(err);
-      setError(`Failed to add todo: ${errorMessage}`);
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  async function toggleTodo(id: string, completed: boolean) {
-    try {
-      setLoading(true);
-      setError(null);
-
-      await db
-        .update(todos)
-        .set({
-          completed: !completed,
-          updatedAt: new Date(),
-        })
-        .where(eq(todos.id, id));
-
-      await loadTodos();
-    } catch (err) {
-      console.error("Failed to toggle todo:", err);
-      setError("Failed to update todo");
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  async function deleteTodo(id: string) {
-    try {
-      setLoading(true);
-      setError(null);
-
-      await db.delete(todos).where(eq(todos.id, id));
-
-      await loadTodos();
-    } catch (err) {
-      console.error("Failed to delete todo:", err);
-      setError("Failed to delete todo");
-    } finally {
-      setLoading(false);
-    }
+    await addTodo(title);
+    setNewTitle("");
   }
 
   return (
@@ -162,7 +78,7 @@ export function TodoList() {
             </div>
             <button
               type="button"
-              onClick={() => setError(null)}
+              onClick={clearError}
               className="shrink-0 rounded-md p-1 text-red-600 hover:bg-red-100 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 dark:text-red-400 dark:hover:bg-red-900/30"
               aria-label="Dismiss error"
             >
@@ -195,7 +111,7 @@ export function TodoList() {
                 id={item.id}
                 name={item.id}
                 checked={item.completed}
-                onChange={() => toggleTodo(item.id, item.completed)}
+                onChange={() => toggleTodo(item.id)}
                 disabled={loading}
               />
               <Label htmlFor={item.id} className={clsx(item.completed && "line-through")}>

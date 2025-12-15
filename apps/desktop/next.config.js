@@ -22,6 +22,9 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true, // Using Biome instead
   },
+
+  // Workspaces export TypeScript source; Next needs to transpile these packages.
+  transpilePackages: ["@tauri-starter/db", "@tauri-starter/store"],
 };
 
 module.exports = nextConfig;

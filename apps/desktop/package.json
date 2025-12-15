@@ -21,6 +21,7 @@
     "@tauri-apps/api": "^2.2.0",
     "@tauri-apps/plugin-sql": "^2.0.0",
     "@tauri-starter/db": "workspace:*",
+    "@tauri-starter/store": "workspace:*",
     "clsx": "2.1.1",
     "drizzle-orm": "^0.36.4",
     "motion": "12.23.26",
