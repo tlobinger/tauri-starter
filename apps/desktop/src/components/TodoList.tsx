@@ -16,7 +16,7 @@ export function TodoList() {
   const loading = useTodoStore((s) => s.isLoading);
   const error = useTodoStore((s) => s.error);
   const loadTodos = useTodoStore((s) => s.loadTodos);
-  const addTodo = useTodoStore((s) => s.addTodo);
+  const addTodoAction = useTodoStore((s) => s.addTodo);
   const toggleTodo = useTodoStore((s) => s.toggleTodo);
   const deleteTodo = useTodoStore((s) => s.deleteTodo);
   const clearError = useTodoStore((s) => s.clearError);
@@ -26,19 +26,19 @@ export function TodoList() {
     loadTodos();
   }, [loadTodos]);
 
-  async function addTodo(e: React.FormEvent) {
+  async function handleAddTodo(e: React.FormEvent) {
     e.preventDefault();
 
     const title = newTitle.trim();
     if (!title) return;
 
-    await addTodo(title);
+    await addTodoAction(title);
     setNewTitle("");
   }
 
   return (
     <div className="flex flex-col gap-4 w-full max-w-prose mx-auto">
-      <form onSubmit={addTodo} className="flex items-center gap-2">
+      <form onSubmit={handleAddTodo} className="flex items-center gap-2">
         <Input
           type="text"
           value={newTitle}

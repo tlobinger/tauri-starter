@@ -1,16 +1,19 @@
-import { createTodoStore } from "@tauri-starter/store";
+import { createTodoStore, type TodoItem, type TodoRepository } from "@tauri-starter/store";
 import { db } from "@/lib/db";
 import { todos } from "@tauri-starter/db/schema";
 import { eq } from "drizzle-orm";
 
-export const useTodoStore = createTodoStore({
-  list: async () => {
-    return await db.select().from(todos).all();
+const repo: TodoRepository = {
+  list: async (): Promise<TodoItem[]> => {
+    // Drizzle typing can be less precise across package boundaries in Next builds.
+    // We normalize here so the store package stays strongly typed.
+    const rows = await db.select().from(todos).all();
+    return rows as unknown as TodoItem[];
   },
 
-  add: async (title: string) => {
+  add: async (title: string): Promise<TodoItem> => {
     const now = new Date();
-    const created = {
+    const created: TodoItem = {
       id: crypto.randomUUID(),
       title,
       completed: false,
@@ -21,7 +24,7 @@ export const useTodoStore = createTodoStore({
     return created;
   },
 
-  toggle: async (id: string, completed: boolean) => {
+  toggle: async (id: string, completed: boolean): Promise<void> => {
     await db
       .update(todos)
       .set({
@@ -31,9 +34,11 @@ export const useTodoStore = createTodoStore({
       .where(eq(todos.id, id));
   },
 
-  remove: async (id: string) => {
+  remove: async (id: string): Promise<void> => {
     await db.delete(todos).where(eq(todos.id, id));
   },
-});
+};
+
+export const useTodoStore = createTodoStore(repo);
 
 
