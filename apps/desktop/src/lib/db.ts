@@ -11,9 +11,9 @@
  */
 
 import { invoke } from "@tauri-apps/api/core";
+import { drizzle } from "drizzle-orm/sqlite-proxy";
 import { createTauriSQLiteAdapter } from "@tauri-starter/db";
 import * as schema from "@tauri-starter/db/schema";
-import { drizzle } from "drizzle-orm/sqlite-proxy";
 
 /**
  * Database instance

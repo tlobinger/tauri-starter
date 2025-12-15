@@ -1,9 +1,9 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import { eq } from "drizzle-orm";
 import { type Todo, db } from "@/lib/db";
 import { todos } from "@tauri-starter/db/schema";
-import { eq } from "drizzle-orm";
-import { useEffect, useState } from "react";
 import styles from "./TodoList.module.css";
 
 /**

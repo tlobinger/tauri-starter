@@ -1,8 +1,8 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { TodoList } from "@/components/TodoList";
 import { initializeDatabase } from "@/lib/db";
-import { useEffect, useState } from "react";
 import styles from "./page.module.css";
 
 export default function Home() {
