@@ -10,7 +10,7 @@
     "tauri:dev": "tauri dev",
     "tauri:build": "tauri build",
     "lint": "biome check .",
-    "test": "bun test",
+    "test": "bun test ../../tests",
     "test:rust": "cargo test --manifest-path src-tauri/Cargo.toml"
   },
   "dependencies": {

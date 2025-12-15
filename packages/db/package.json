@@ -4,6 +4,10 @@
   "private": true,
   "type": "module",
   "main": "./index.ts",
+  "exports": {
+    ".": "./index.ts",
+    "./schema": "./schema/index.ts"
+  },
   "scripts": {
     "generate": "drizzle-kit generate",
     "migrate": "bun run migrator.ts"

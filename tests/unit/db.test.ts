@@ -66,18 +66,20 @@ describe("Database Operations", () => {
 
   test("should handle todo updates", () => {
     // Mock test
+    const now = new Date();
     const todo: Todo = {
       id: "test-id",
       title: "Original",
       completed: false,
-      createdAt: new Date(),
-      updatedAt: new Date(),
+      createdAt: now,
+      updatedAt: now,
     };
 
+    const later = new Date(now.getTime() + 1000); // 1 second later
     const updated = {
       ...todo,
       completed: true,
-      updatedAt: new Date(),
+      updatedAt: later,
     };
 
     expect(updated.completed).toBe(true);
