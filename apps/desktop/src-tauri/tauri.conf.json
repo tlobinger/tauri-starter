@@ -2,7 +2,7 @@
   "$schema": "https://schema.tauri.app/config/2",
   "productName": "Tauri Starter",
   "version": "1.0.0",
-  "identifier": "com.tauri-starter.app",
+  "identifier": "com.tauri-starter",
   "build": {
     "beforeDevCommand": "bun run dev",
     "beforeBuildCommand": "bun run build",
