@@ -2,7 +2,7 @@
 //
 // This module exports the main Tauri app logic for use by the binary and tests.
 
-mod db;
+mod commands;
 
 use tauri::Manager;
 
@@ -39,7 +39,7 @@ pub fn run() {
 
             Ok(())
         })
-        .invoke_handler(tauri::generate_handler![db::init_database])
+        .invoke_handler(tauri::generate_handler![commands::db::init_database])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
