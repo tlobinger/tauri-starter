@@ -1,4 +1,6 @@
 /** @type {import('next').NextConfig} */
+const path = require("path");
+
 const withBundleAnalyzer = require("@next/bundle-analyzer")({
   enabled: process.env.ANALYZE === "true",
 });
@@ -29,6 +31,12 @@ const nextConfig = {
     // Helps reduce bundle size by improving tree-shaking for some packages.
     // Add entries as needed (keep this list small and intentional).
     optimizePackageImports: ["@heroicons/react", "@headlessui/react"],
+  },
+
+  // Silence Turbopack's “inferred workspace root” warning in monorepos.
+  // This should point at the monorepo root (where your lockfile/workspaces live).
+  turbopack: {
+    root: path.join(__dirname, "..", ".."),
   },
 };
 
