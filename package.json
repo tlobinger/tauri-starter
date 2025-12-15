@@ -9,7 +9,7 @@
     "dev": "turbo run dev --filter @tauri-starter/desktop",
     "build": "turbo run build --filter @tauri-starter/desktop",
     "tauri:dev": "turbo run tauri:dev --filter @tauri-starter/desktop",
-    "tauri:build": "turbo run tauri:build --filter @tauri-starter/desktop",
+    "tauri:build": "turbo run tauri:build --filter @tauri-starter/desktop --verbosity 10",
     "mcp:serve": "tauri-mcp --app-path ./apps/desktop serve",
     "db:generate": "turbo run db:generate --filter @tauri-starter/db",
     "db:migrate": "turbo run db:migrate --filter @tauri-starter/db",
@@ -20,17 +20,17 @@
     "format": "biome format --write ."
   },
   "dependencies": {
-    "@tauri-apps/api": "^2.2.0"
+    "@tauri-apps/api": "2.9.1"
   },
   "devDependencies": {
-    "@biomejs/biome": "^1.9.4",
-    "@next/bundle-analyzer": "16.0.10",
+    "@biomejs/biome": "^2.3.9",
+    "@next/bundle-analyzer": "^16.0.10",
     "@tauri-starter/db": "workspace:*",
-    "@types/bun": "latest",
-    "turbo": "^2.3.3"
+    "@types/bun": "^1.3.4",
+    "turbo": "^2.6.3"
   },
   "engines": {
-    "bun": ">=1.0.0",
+    "bun": ">=1.3.0",
     "node": ">=20.0.0"
   }
 }

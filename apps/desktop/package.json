@@ -15,27 +15,27 @@
     "test:rust": "cargo test --manifest-path src-tauri/Cargo.toml"
   },
   "dependencies": {
-    "@headlessui/react": "2.2.9",
-    "@heroicons/react": "2.2.0",
-    "@tailwindcss/postcss": "4.1.18",
-    "@tauri-apps/api": "^2.2.0",
-    "@tauri-apps/plugin-sql": "^2.0.0",
+    "@headlessui/react": "^2.2.9",
+    "@heroicons/react": "^2.2.0",
+    "@tailwindcss/postcss": "^4.1.18",
+    "@tauri-apps/api": "^2.9.1",
+    "@tauri-apps/plugin-sql": "^2.3.1",
     "@tauri-starter/db": "workspace:*",
     "@tauri-starter/store": "workspace:*",
-    "clsx": "2.1.1",
+    "clsx": "^2.1.1",
     "drizzle-orm": "^0.45.1",
-    "motion": "12.23.26",
+    "motion": "^12.23.26",
     "next": "^16.0.10",
-    "postcss": "8.5.6",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "tailwindcss": "4.1.18"
+    "postcss": "^8.5.6",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "tailwindcss": "^4.1.18"
   },
   "devDependencies": {
-    "@tauri-apps/cli": "^2.2.0",
+    "@tauri-apps/cli": "^2.9.6",
     "@types/node": "^25.0.2",
-    "@types/react": "^19.0.1",
-    "@types/react-dom": "^19.0.2",
-    "typescript": "^5.7.2"
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "typescript": "^5.9.3"
   }
 }

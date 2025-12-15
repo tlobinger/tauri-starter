@@ -1,23 +1,19 @@
-/** @type {import('next').NextConfig} */
-const path = require("path");
+import { NextConfig } from "next";
+import path from "path";
+import withBundleAnalyzer from "@next/bundle-analyzer";
 
-const withBundleAnalyzer = require("@next/bundle-analyzer")({
-  enabled: process.env.ANALYZE === "true",
-});
-
-const nextConfig = {
-  // Static export is MANDATORY for Tauri production builds
-  // Note: Next.js ignores this in dev mode (next dev), so HMR still works
+const nextConfig: NextConfig = {
   output: "export",
+  distDir: "out",
+
+  // Strongly recommended for file-based hosting:
+  // Ensures routes like /settings resolve to /settings/index.html in static hosting
+  trailingSlash: true,
 
   // Disable image optimization (requires Node.js server)
   images: {
     unoptimized: true,
   },
-
-  // Tauri serves from the file system in production
-  // In dev mode, Next.js dev server handles assets automatically
-  assetPrefix: process.env.NODE_ENV === "production" ? "./" : undefined,
 
   // Ensure compatibility with strict TypeScript
   typescript: {
@@ -40,4 +36,6 @@ const nextConfig = {
   },
 };
 
-module.exports = withBundleAnalyzer(nextConfig);
+export default withBundleAnalyzer({
+  enabled: process.env.ANALYZE === "true",
+})(nextConfig);

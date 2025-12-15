@@ -6,9 +6,12 @@ on:
   pull_request:
     branches: [main]
 
+env:
+  CI: true
+
 jobs:
   test-typescript:
-    name: TypeScript Tests
+    name: TypeScript Lint & Tests
     runs-on: ubuntu-latest
 
     steps:
@@ -18,6 +21,7 @@ jobs:
         uses: oven-sh/setup-bun@v1
         with:
           bun-version: latest
+          cache: true
 
       - name: Install dependencies
         run: bun install
@@ -55,10 +59,11 @@ jobs:
             librsvg2-dev
 
       - name: Run Rust tests
-        run: cargo test --manifest-path apps/desktop/src-tauri/Cargo.toml
+        run: cargo test --locked --manifest-path apps/desktop/src-tauri/Cargo.toml
 
   build:
     name: Build Check
+    needs: [test-typescript, test-rust]
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -71,6 +76,7 @@ jobs:
         uses: oven-sh/setup-bun@v1
         with:
           bun-version: latest
+          cache: true
 
       - name: Setup Rust
         uses: actions-rs/toolchain@v1
@@ -98,7 +104,8 @@ jobs:
       - name: Build frontend
         run: bun run build
 
-      - name: Build Tauri app
+      - name: Build Tauri app (signed, main branch only)
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: bun run tauri:build
         env:
           TAURI_PRIVATE_KEY: ${{ secrets.TAURI_PRIVATE_KEY }}

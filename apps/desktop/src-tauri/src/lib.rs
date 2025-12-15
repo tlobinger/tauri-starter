@@ -8,16 +8,14 @@ use tauri::Manager;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
-    // Initialize DevTools in debug builds only
+    let mut builder = tauri::Builder::default();
+
+    // Enable DevTools for debugging (including release builds)
+    // TODO: Disable this for production by uncommenting the #[cfg(debug_assertions)] check below
     // This should be called as early as possible in the execution
-    #[cfg(debug_assertions)]
-    let devtools = tauri_plugin_devtools::init();
-
-    let builder = tauri::Builder::default();
-
-    // Add DevTools plugin in debug builds
-    #[cfg(debug_assertions)]
+    // #[cfg(debug_assertions)]  // Uncomment this line to disable DevTools in release builds
     {
+        let devtools = tauri_plugin_devtools::init();
         builder = builder.plugin(devtools);
     }
 
