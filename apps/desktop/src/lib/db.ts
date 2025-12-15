@@ -13,7 +13,7 @@
 import { createTauriSQLiteAdapter, migrations } from "@tauri-starter/db";
 import * as schema from "@tauri-starter/db/schema";
 import { drizzle } from "drizzle-orm/sqlite-proxy";
-import { ipcInvoke } from "./ipc";
+import { ipcInvokeTyped } from "./ipc";
 
 /**
  * Check if Tauri API is available
@@ -190,7 +190,7 @@ export async function initializeDatabase(): Promise<void> {
     // In Tauri v2, we call invoke directly - if Tauri isn't available,
     // it will throw an error that we can catch and provide a helpful message
     try {
-      await ipcInvoke<void>("init_database");
+      await ipcInvokeTyped("init_database");
     } catch (error: unknown) {
       // Check if this is a "Tauri not available" error
       const errorMessage = String(
