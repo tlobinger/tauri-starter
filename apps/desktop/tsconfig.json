@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "lib": [
-      "DOM",
-      "DOM.Iterable",
-      "ES2022"
-    ],
+    "lib": ["DOM", "DOM.Iterable", "ES2022"],
     "jsx": "react-jsx",
     "module": "ESNext",
     "moduleResolution": "bundler",
@@ -24,12 +20,8 @@
       }
     ],
     "paths": {
-      "@/*": [
-        "./src/*"
-      ],
-      "@/app/*": [
-        "./app/*"
-      ]
+      "@/*": ["./src/*"],
+      "@/app/*": ["./app/*"]
     }
   },
   "include": [
@@ -41,8 +33,5 @@
     "out/types/**/*.ts",
     "out/dev/types/**/*.ts"
   ],
-  "exclude": [
-    "node_modules",
-    "src-tauri"
-  ]
+  "exclude": ["node_modules", "src-tauri"]
 }

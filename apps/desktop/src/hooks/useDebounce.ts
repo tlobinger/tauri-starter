@@ -19,7 +19,7 @@ export function useDebounce<T>(value: T, delayMs: number): T {
  */
 export function useDebouncedCallback<TArgs extends unknown[]>(
   callback: (...args: TArgs) => void,
-  delayMs: number
+  delayMs: number,
 ): (...args: TArgs) => void {
   const callbackRef = useRef(callback);
   callbackRef.current = callback;
@@ -31,5 +31,3 @@ export function useDebouncedCallback<TArgs extends unknown[]>(
     timeoutRef.current = setTimeout(() => callbackRef.current(...args), delayMs);
   };
 }
-
-

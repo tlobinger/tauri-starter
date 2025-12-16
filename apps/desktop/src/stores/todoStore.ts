@@ -1,7 +1,7 @@
-import { createTodoStore, type TodoItem, type TodoRepository } from "@tauri-starter/store";
-import { db } from "@/lib/db";
 import { todos } from "@tauri-starter/db/schema";
+import { createTodoStore, type TodoItem, type TodoRepository } from "@tauri-starter/store";
 import { eq } from "drizzle-orm";
+import { db } from "@/lib/db";
 
 const repo: TodoRepository = {
   list: async (): Promise<TodoItem[]> => {
@@ -40,5 +40,3 @@ const repo: TodoRepository = {
 };
 
 export const useTodoStore = createTodoStore(repo);
-
-

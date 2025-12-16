@@ -1,14 +1,14 @@
 "use client";
 
+import clsx from "clsx";
 import { useEffect, useState } from "react";
-import { Input } from "./ui/input";
+import { useTodoStore } from "@/stores/todoStore";
+import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import { Checkbox } from "./ui/checkbox";
 import { Field, Label } from "./ui/fieldset";
-import clsx from "clsx";
-import { Badge } from "./ui/badge";
+import { Input } from "./ui/input";
 import { Spinner } from "./ui/spinner";
-import { useTodoStore } from "@/stores/todoStore";
 
 export function TodoList() {
   const [newTitle, setNewTitle] = useState("");

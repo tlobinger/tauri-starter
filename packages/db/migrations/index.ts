@@ -1,6 +1,6 @@
 /**
  * Database Migrations
- * 
+ *
  * This file exports all migrations as an array.
  * Migrations are applied in order at app startup.
  */
@@ -21,4 +21,3 @@ CREATE TABLE \`todos\` (
 );`,
   },
 ] as const;
-

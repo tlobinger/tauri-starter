@@ -79,7 +79,7 @@ export function createTodoStore(repo: TodoRepository) {
         const prev = get().items;
         set({
           items: prev.map((t) =>
-            t.id === id ? { ...t, completed: !t.completed, updatedAt: new Date() } : t
+            t.id === id ? { ...t, completed: !t.completed, updatedAt: new Date() } : t,
           ),
           error: null,
         });
@@ -108,8 +108,6 @@ export function createTodoStore(repo: TodoRepository) {
           });
         }
       },
-    }))
+    })),
   );
 }
-
-

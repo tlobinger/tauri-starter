@@ -20,7 +20,5 @@ export const useAppStore = create<AppStoreState>()(
     lastError: null,
     setError: (message) => set({ lastError: message }),
     clearError: () => set({ lastError: null }),
-  }))
+  })),
 );
-
-

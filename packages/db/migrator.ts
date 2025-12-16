@@ -19,7 +19,7 @@
  * - Production (called from Tauri startup)
  */
 
-import { readFileSync, readdirSync } from "node:fs";
+import { readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 // See note in `tauri-adapter.ts` about importing from the package root
 // instead of the "@tauri-apps/api/core" subpath for better compatibility.

@@ -1,6 +1,6 @@
-import { NextConfig } from "next";
-import path from "path";
+import path from "node:path";
 import withBundleAnalyzer from "@next/bundle-analyzer";
+import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   output: "export",

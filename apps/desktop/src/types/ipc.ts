@@ -9,10 +9,8 @@
 export type IpcCommandMap = {
   init_database: {
     payload: undefined;
-    response: void;
+    response: undefined;
   };
 };
 
 export type IpcCommandName = keyof IpcCommandMap;
-
-

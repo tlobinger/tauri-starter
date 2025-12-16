@@ -16,7 +16,7 @@ type LoadingState<T> = {
  * - Reusable across the app and easy to unit test.
  */
 export function useLoadingState<T>(
-  asyncFunction: (...args: unknown[]) => Promise<T>
+  asyncFunction: (...args: unknown[]) => Promise<T>,
 ): LoadingState<T> {
   const [data, setData] = useState<T | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -38,7 +38,7 @@ export function useLoadingState<T>(
         setIsLoading(false);
       }
     },
-    [asyncFunction]
+    [asyncFunction],
   );
 
   const reset = useCallback(() => {
@@ -49,5 +49,3 @@ export function useLoadingState<T>(
 
   return { data, isLoading, error, execute, reset };
 }
-
-

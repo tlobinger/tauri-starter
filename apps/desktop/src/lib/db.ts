@@ -96,7 +96,7 @@ async function runMigrations(): Promise<void> {
         applied_at INTEGER NOT NULL
       )
       `,
-      []
+      [],
     );
     console.log("✅ Migrations tracking table ready");
   } catch (error) {
@@ -117,7 +117,7 @@ async function runMigrations(): Promise<void> {
     // Check if already applied
     const result = await dbAdapter.execute(
       "SELECT COUNT(*) as count FROM __drizzle_migrations WHERE name = ?",
-      [migration.name]
+      [migration.name],
     );
 
     const countRow = result.rows[0] as { count: number } | undefined;
@@ -182,7 +182,7 @@ export async function initializeDatabase(): Promise<void> {
     if (!isTauriAvailable()) {
       throw new Error(
         "Tauri runtime not available. Make sure you're running the app with 'bun run tauri:dev' " +
-          "and viewing it in the Tauri window, not in a regular browser."
+          "and viewing it in the Tauri window, not in a regular browser.",
       );
     }
 
@@ -194,7 +194,7 @@ export async function initializeDatabase(): Promise<void> {
     } catch (error: unknown) {
       // Check if this is a "Tauri not available" error
       const errorMessage = String(
-        error && typeof error === "object" && "message" in error ? error.message : (error ?? "")
+        error && typeof error === "object" && "message" in error ? error.message : (error ?? ""),
       ).toLowerCase();
 
       // Common Tauri v2 error patterns when runtime isn't available
@@ -210,7 +210,7 @@ export async function initializeDatabase(): Promise<void> {
       if (isTauriError) {
         const friendlyError = new Error(
           "Tauri runtime not available. Make sure you're running the app with 'bun run tauri:dev' " +
-            "and viewing it in the Tauri window, not in a regular browser."
+            "and viewing it in the Tauri window, not in a regular browser.",
         );
         console.error("❌ Database initialization failed:", friendlyError);
         console.error("Original error:", error);
@@ -230,7 +230,7 @@ export async function initializeDatabase(): Promise<void> {
       // Also check what tables exist
       const tablesResult = await dbAdapter.execute(
         "SELECT name FROM sqlite_master WHERE type='table' ORDER BY name",
-        []
+        [],
       );
       console.log("📋 Existing tables:", tablesResult.rows);
     } catch (error) {
@@ -245,7 +245,7 @@ export async function initializeDatabase(): Promise<void> {
           : String(error);
       console.error("Error details:", errorDetails);
       throw new Error(
-        `Database connection failed: ${error instanceof Error ? error.message : String(error)}`
+        `Database connection failed: ${error instanceof Error ? error.message : String(error)}`,
       );
     }
 
@@ -257,7 +257,7 @@ export async function initializeDatabase(): Promise<void> {
     try {
       const tableCheck = await dbAdapter.execute(
         "SELECT name FROM sqlite_master WHERE type='table' AND name='todos'",
-        []
+        [],
       );
       if (tableCheck.rows.length === 0) {
         throw new Error("Todos table was not created by migrations");
@@ -276,4 +276,4 @@ export async function initializeDatabase(): Promise<void> {
   }
 }
 
-export type { Todo, NewTodo } from "@tauri-starter/db/schema";
+export type { NewTodo, Todo } from "@tauri-starter/db/schema";

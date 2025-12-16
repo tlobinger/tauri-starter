@@ -27,7 +27,7 @@ export function ErrorProvider({ children }: { children: React.ReactNode }) {
       setError,
       clearError,
     }),
-    [lastError, setError, clearError]
+    [lastError, setError, clearError],
   );
 
   return <ErrorContext.Provider value={value}>{children}</ErrorContext.Provider>;
@@ -40,5 +40,3 @@ export function useErrorContext() {
   }
   return ctx;
 }
-
-

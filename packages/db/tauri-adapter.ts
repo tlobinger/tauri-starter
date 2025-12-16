@@ -62,7 +62,7 @@ export function createTauriSQLiteAdapter() {
   return async (
     sql: string,
     params: unknown[],
-    method: "run" | "all" | "values" | "get"
+    method: "run" | "all" | "values" | "get",
   ): Promise<{ rows: unknown[] }> => {
     const db = await getDatabase();
 

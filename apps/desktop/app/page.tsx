@@ -1,9 +1,9 @@
 "use client";
 
-import { initializeDatabase } from "@/lib/db";
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { Spinner } from "@/components/ui/spinner";
+import { initializeDatabase } from "@/lib/db";
 
 const TodoList = dynamic(async () => (await import("@/components/TodoList")).TodoList, {
   ssr: false,

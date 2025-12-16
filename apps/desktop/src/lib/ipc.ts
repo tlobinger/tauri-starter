@@ -23,7 +23,7 @@ export function toError(err: unknown, fallbackMessage = "Unexpected error"): Err
  */
 export async function ipcInvoke<TResponse>(
   command: string,
-  payload?: Record<string, unknown>
+  payload?: Record<string, unknown>,
 ): Promise<TResponse> {
   try {
     return await invoke<TResponse>(command, payload);
@@ -47,5 +47,3 @@ export async function ipcInvokeTyped<TCommand extends IpcCommandName>(
   const payload = (args[0] ?? undefined) as Record<string, unknown> | undefined;
   return await ipcInvoke<IpcCommandMap[TCommand]["response"]>(command, payload);
 }
-
-

@@ -22,7 +22,7 @@ type ApiCallState<T> = {
  */
 export function useApiCall<T>(
   apiFunction: (...args: unknown[]) => Promise<T>,
-  options: ApiCallOptions<T> = {}
+  options: ApiCallOptions<T> = {},
 ): ApiCallState<T> {
   const [data, setData] = useState<T | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -49,7 +49,7 @@ export function useApiCall<T>(
         if (isMountedRef.current) setIsLoading(false);
       }
     },
-    [apiFunction, options]
+    [apiFunction, options],
   );
 
   const reset = useCallback(() => {
@@ -66,5 +66,3 @@ export function useApiCall<T>(
 
   return { data, isLoading, error, call, reset };
 }
-
-

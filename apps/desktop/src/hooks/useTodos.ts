@@ -36,5 +36,3 @@ export function useTodos() {
     deleteTodo: useCallback((id: string) => deleteTodo(id), [deleteTodo]),
   };
 }
-
-

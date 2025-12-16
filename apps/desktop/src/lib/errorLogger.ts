@@ -12,5 +12,3 @@ export function logError(error: unknown, context: ErrorContext = {}) {
   const message = error instanceof Error ? error.message : String(error);
   console.error("[error]", message, { error, ...context });
 }
-
-
