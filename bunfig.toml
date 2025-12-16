@@ -10,9 +10,8 @@ prefer-offline = false
 
 [test]
 # Test configuration
-preload = []
-coverage = false
-coverageReporter = ["text", "json"]
+coverage = true
+coverageReporter = ["text"]
 
 [run]
 # Don't auto-install missing packages
