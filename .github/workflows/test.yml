@@ -43,7 +43,7 @@ jobs:
         uses: actions-rs/toolchain@v1
         with:
           profile: minimal
-          toolchain: stable
+          # rust-toolchain.toml in src-tauri will be used automatically
           override: true
 
       - name: Install system dependencies
@@ -82,7 +82,7 @@ jobs:
         uses: actions-rs/toolchain@v1
         with:
           profile: minimal
-          toolchain: stable
+          # rust-toolchain.toml in src-tauri will be used automatically
           override: true
 
       - name: Install system dependencies (Ubuntu)
