@@ -12,7 +12,7 @@
     "dev": "turbo run dev --filter @tauri-starter/desktop",
     "build": "turbo run build --filter @tauri-starter/desktop",
     "tauri:dev": "turbo run tauri:dev --filter @tauri-starter/desktop",
-    "tauri:build": "turbo run tauri:build --filter @tauri-starter/desktop --verbosity 10",
+    "tauri:build": "turbo run tauri:build --filter @tauri-starter/desktop",
     "mcp:serve": "tauri-mcp --app-path ./apps/desktop serve",
     "db:generate": "turbo run db:generate --filter @tauri-starter/db",
     "db:migrate": "turbo run db:migrate --filter @tauri-starter/db",
